@@ -1,42 +1,48 @@
 class ApplicationsController < ApplicationController
 
     def index 
-        @applications = Application.all
+
+        @applications =  Application.all
+        render json: @applications
     end
 
     def show  
-        @application = Application.find(params[:id])       
+        @applications =  Application.find(params[:id])
+        render json: @application       
     end
 
-    def new 
-        @application = Application.new
-    end
 
-    def create 
-        @application = Application.create(application_params)
-        if @application.save 
-            flash[:success] = "application successfully created"
+    def create
+        @applications =  Application.create(application_params)
+
+        
+       # @applications.save
+
+
+        render json: @applications
+        
     end
 
     def edit 
-        @application.find(params[:id])
+        @applications.find(params[:id])
     end
 
     def update 
-        @application = Application.update(application_params)
-        if @application.save 
-            flash[:success] = "application successfully created"
+        @applications=  Application.update(application_params)
+        render json: @applications
+        
     end 
 
     def destroy
-        @application.find(params[:id]).destroy
+        @applications= Application.find(params[:id]).destroy
+        render json: @applications
 
     end 
 
     private 
     def application_params
 
-    params.requrie(:Application).permit()
+    params.permit(:id, :name)
     
     end
 end

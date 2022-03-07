@@ -2,42 +2,41 @@ class ChatsController < ApplicationController
 
 
     def index 
-        @chat = Chat.all
+        @chats =  Chat.all
+        render json: @chats
     end
 
     def show  
-        @chat = Chat.find(params[:id])       
+        @chats =  Chat.find(params[:id])  
+        render json: @chats   
     end
 
-    def new 
-        @chat = Chat.new
+  
+
+    def create
+        @chats =  Chat.create(chat_params)
+        render json: @chats
+       
     end
 
-    def create 
-        @chat = Chat.create(chat_params)
-        if @chat.save 
-            flash[:success] = "chat successfully created"
-    end
-
-    def edit 
-        @chat = Chat.find(params[:id])       
-    end
+   
 
     def update 
-        @chat = chat.update(chat_params)
-        if @chat.save 
-            flash[:success] = "chat successfully created"
+        @chats =  Chat.update(chat_params)
+        render json: @chats
+     
     end 
 
     def destroy
-        @chat.find(params[:id]).destroy
+        @chats =  Chat.find(params[:id]).destroy
+        render json: @chats
 
     end 
 
     private 
     def chat_params
 
-    params.requrie(:Chat).permit()
+    params.permit(:id, :message_body , :message_count , :message_number , :application_token)
     
     end
 
