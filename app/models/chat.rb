@@ -1,4 +1,6 @@
 class Chat < ApplicationRecord
+    searchkick word_middle: [:message_body]
+    #run command rails searchkick:reindex CLASS=Chat in order to adjust the routes 
     belongs_to :application
     attr_accessor :token , :chat_count
 

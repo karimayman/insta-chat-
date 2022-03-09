@@ -2,7 +2,12 @@ class ChatsController < ApplicationController
 
 
     def index 
-        @chats =  Chat.all
+        search = params[:message_body].present? params[:message_body] :nil
+        @chats = if search
+            Chats.search(search) 
+
+        else 
+            @chats =  Chat.all
         render json: @chats
     end
 
